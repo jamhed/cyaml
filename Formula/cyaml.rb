@@ -2,16 +2,16 @@
 class Cyaml < Formula
   desc ""
   homepage ""
-  version "0.1.1"
+  version "0.2.0"
   bottle :unneeded
 
   if OS.mac?
-    url "https://github.com/jamhed/cyaml/releases/download/v0.1.1/cyaml_0.1.1_darwin_amd64.tar.gz"
-    sha256 "ea698b7e303522174ce21229fa022fc306d0c2ff5d73fd741f40d1b46184bf74"
+    url "https://github.com/jamhed/cyaml/releases/download/v0.2.0/cyaml_0.2.0_darwin_amd64.tar.gz"
+    sha256 "c393d2812c68ba729e984e71cd391e9a8b4867a62847774ea37e06a09967dfb7"
   elsif OS.linux?
     if Hardware::CPU.intel?
-      url "https://github.com/jamhed/cyaml/releases/download/v0.1.1/cyaml_0.1.1_linux_amd64.tar.gz"
-      sha256 "adf28071bfc9a5fb4cc55baad59656495999ddededd6bbc31114499a717b0907"
+      url "https://github.com/jamhed/cyaml/releases/download/v0.2.0/cyaml_0.2.0_linux_amd64.tar.gz"
+      sha256 "50c7ef754ed79df0622e4e59ee02b1c1e0dcd2adc57be6911c060e9854a65200"
     end
   end
 
