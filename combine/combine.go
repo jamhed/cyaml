@@ -9,7 +9,6 @@ import (
 	"cyaml/types"
 
 	log "github.com/sirupsen/logrus"
-	"gopkg.in/yaml.v2"
 )
 
 func Exec(path, prefix string) (*types.CyamlMeta, error) {
@@ -24,7 +23,7 @@ func Exec(path, prefix string) (*types.CyamlMeta, error) {
 			log.Errorf("Can't read file:%s error:%s", file, err)
 			continue
 		}
-		re.Entries = append(re.Entries, types.CyamlEntry{Name: stripPrefix(file, prefix), Content: content})
+		re.Entries = append(re.Entries, types.CyamlEntry{Name: stripPrefix(file, prefix), Content: string(content)})
 	}
 	return re, nil
 }
@@ -42,15 +41,6 @@ func traverse(path string) ([]string, error) {
 	return files, err
 }
 
-func read(file string) (types.Cyaml, error) {
-	yamlFile, err := ioutil.ReadFile(file)
-	if err != nil {
-		return nil, err
-	}
-	m := make(types.Cyaml)
-	err = yaml.Unmarshal(yamlFile, m)
-	if err != nil {
-		return nil, err
-	}
-	return m, nil
+func read(file string) ([]byte, error) {
+	return ioutil.ReadFile(file)
 }

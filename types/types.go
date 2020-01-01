@@ -4,7 +4,7 @@ type Cyaml map[string]interface{}
 
 type CyamlEntry struct {
 	Name    string `yaml:"name"`
-	Content Cyaml  `yaml:"content"`
+	Content string `yaml:"content"`
 }
 
 type CyamlMeta struct {

@@ -24,12 +24,7 @@ func Exec(file, prefix string) error {
 			log.Errorf("Can't create target path %s, error:%s", targetPath, err)
 			continue
 		}
-		buf, err := yaml.Marshal(entry.Content)
-		if err != nil {
-			log.Errorf("Can't unmarshal entry %s, error:%s", entry.Name, err)
-			continue
-		}
-		ioutil.WriteFile(targetFile, buf, os.ModePerm)
+		ioutil.WriteFile(targetFile, []byte(entry.Content), os.ModePerm)
 	}
 	return nil
 }
