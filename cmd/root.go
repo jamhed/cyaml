@@ -11,6 +11,7 @@ var rootCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(combineCmd)
+	rootCmd.AddCommand(splitCmd)
 }
 
 func Execute() error {

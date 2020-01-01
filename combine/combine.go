@@ -6,33 +6,26 @@ import (
 	"path/filepath"
 	"strings"
 
+	"cyaml/types"
+
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 )
 
-type Cyaml map[string]interface{}
-
-func Exec(path, prefix string) (Cyaml, error) {
+func Exec(path, prefix string) (*types.CyamlMeta, error) {
 	files, err := traverse(path)
 	if err != nil {
 		return nil, err
 	}
-	re := make(Cyaml)
-	re["type"] = "cyaml"
-	re["version"] = "1"
-	entries := []Cyaml{}
+	re := &types.CyamlMeta{Type: "cyaml", Version: "1"}
 	for _, file := range files {
 		content, err := read(file)
 		if err != nil {
 			log.Errorf("Can't read file:%s error:%s", file, err)
 			continue
 		}
-		entry := make(Cyaml)
-		entry["name"] = stripPrefix(file, prefix)
-		entry["content"] = content
-		entries = append(entries, entry)
+		re.Entries = append(re.Entries, types.CyamlEntry{Name: stripPrefix(file, prefix), Content: content})
 	}
-	re["files"] = entries
 	return re, nil
 }
 
@@ -49,12 +42,12 @@ func traverse(path string) ([]string, error) {
 	return files, err
 }
 
-func read(file string) (Cyaml, error) {
+func read(file string) (types.Cyaml, error) {
 	yamlFile, err := ioutil.ReadFile(file)
 	if err != nil {
 		return nil, err
 	}
-	m := make(Cyaml)
+	m := make(types.Cyaml)
 	err = yaml.Unmarshal(yamlFile, m)
 	if err != nil {
 		return nil, err
