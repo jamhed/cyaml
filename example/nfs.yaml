@@ -2,28 +2,28 @@ name: cyaml
 version: "1"
 entries:
 - name: Chart.yaml
-  content:
+  content: |
     apiVersion: v1
     appVersion: 0.3.1
     description: nfs-server-provisioner
     name: nfs
     version: 0.3.1
 - name: requirements.yaml
-  content:
+  content: |
     dependencies:
     - name: nfs-server-provisioner
-      repository: '@stable'
       version: 0.3.1
+      repository: "@stable"
 - name: templates/namespace.yaml
-  content:
+  content: |
     apiVersion: v1
     kind: Namespace
     metadata:
-      name: -{{ .Release.Namespace }}
+      name: {{ .Release.Namespace }}
 - name: values.yaml
-  content:
+  content: |
     nfs-server-provisioner:
       persistence:
         enabled: true
+        storageClass: "local-path"
         size: 1000Gi
-        storageClass: local-path
