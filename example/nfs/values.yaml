@@ -1,0 +1,5 @@
+nfs-server-provisioner:
+  persistence:
+    enabled: true
+    storageClass: "local-path"
+    size: 1000Gi
