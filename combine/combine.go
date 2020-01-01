@@ -18,6 +18,14 @@ func Exec(path, prefix string) (*types.CyamlMeta, error) {
 	}
 	re := &types.CyamlMeta{Type: "cyaml", Version: "1"}
 	for _, file := range files {
+		fi, err := os.Stat(file)
+		if err != nil {
+			log.Errorf("Can't stat file:%s error:%s", file, err)
+			continue
+		}
+		if fi.IsDir() {
+			continue
+		}
 		content, err := read(file)
 		if err != nil {
 			log.Errorf("Can't read file:%s error:%s", file, err)
